@@ -69,6 +69,7 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         if (level != null) {
             level.invalidateCapabilities(worldPosition);
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+            level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
         }
     }
 

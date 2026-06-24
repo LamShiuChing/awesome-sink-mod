@@ -35,6 +35,9 @@ Minecraft mod recreating Satisfactory's AWESOME Sink + Shop: dump items into the
 - Points displayed in GUI are clamped to `int`.
 
 ## Recent Changes
+- 2026-06-24 — Unbounded sink intake via consume-on-insert: MachineInventory.InputConsumer awards points the instant items are inserted (stores nothing) → no throughput cap. Reverted oversized input buffer that crashed (MC hard-caps item stacks at [1;99]; >99 fails to save). GUI-placed items still drained per tick. Removed sinkConsumePerTick config.
+- 2026-06-24 — Fixed I/O overlay overlapping JEI (moved inside GUI panel, dark backdrop). Added neighbor update on cycleSide so pipes (Pipez) re-scan when a face is enabled (cap invalidation alone didn't trigger their reconnect). Testing with JEI/Pipez/Cobble Gen in run/mods.
+- 2026-06-24 — Committed + pushed valuation + economy batch (656c764): recipe-cost SinkValuation, intake-all, tooltips, high anchors, linear coupon curve.
 - 2026-06-24 — Rebalanced coupon cost: quadratic escalation outran point income, so switched to linear `base + step·couponsPrinted` (default +250) with a config cap (1M). Coupons stay attainable late-game. Config: couponCostStep, couponMaxCost (replaced couponCostFactor).
 - 2026-06-24 — Curated sink_values anchors for hard leaves + iconic items, scaled high (nether star 120k, beacon 180k, elytra 300k, netherite block 600k, dragon egg 1M). Formula propagates upward; boss/treasure leaves can't be auto-detected so they're anchored in JSON.
 - 2026-06-23 — Valuation perf + tuning: built result→recipes index (O(1) lookups, generic over recipe types incl smelting/stonecutting via getIngredients) instead of scanning all recipes; config-tunable rarity weights (1/8/64/512), non-stackable ×4 multiplier, leaf base. Memoized + cycle-guarded.
@@ -42,6 +45,3 @@ Minecraft mod recreating Satisfactory's AWESOME Sink + Shop: dump items into the
 - 2026-06-23 — Committed + pushed GUI polish (44f2321): vanilla slot bevel, no bold tooltips, white 32px furnace arrow, items/tick, roomier layout.
 - 2026-06-23 — UI polish v2: real bold-border fix was the slot sprite (heavy 18x18 dark frame → vanilla 1px dark/white bevel in TexGen.slot); white 32px furnace arrow fill; moved machine slots to y40; moved sink "Next" label under the arrow (was overlapping the I/O button).
 - 2026-06-23 — Added sink portal particles (while consuming) + advancements (root 'AWESOME'→'FICSIT Coupon') via datagen; pushed c4d4c72.
-- 2026-06-23 — Added feedback sounds (vanilla events, no assets): amethyst chime on coupon print, xp-pickup on purchase; pushed 74e4677.
-- 2026-06-23 — Added common config (ModConfigSpec: coupon base/factor, sink rate) + shop catalog scrolling; pushed b2f8dc9. Coupon cost + sink rate now tunable.
-- 2026-06-23 — Added coupon progress bar to sink GUI (unspent points → next coupon cost); pushed db9f50c.

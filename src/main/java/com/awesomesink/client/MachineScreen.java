@@ -51,6 +51,7 @@ public abstract class MachineScreen<T extends MachineMenu> extends AbstractConta
     }
 
     private void renderSideConfig(GuiGraphics graphics) {
+        graphics.fill(leftPos + 40, topPos + 14, leftPos + 136, topPos + 86, 0xE0151515);
         for (RelativeSide side : RelativeSide.values()) {
             int[] r = boxRect(side);
             graphics.fill(r[0], r[1], r[0] + BOX, r[1] + BOX, sideMode(side).color);
@@ -74,8 +75,8 @@ public abstract class MachineScreen<T extends MachineMenu> extends AbstractConta
     }
 
     private int[] boxRect(RelativeSide side) {
-        int originX = leftPos + imageWidth + 6;
-        int originY = topPos + 16;
+        int originX = leftPos + 44;
+        int originY = topPos + 18;
         int[] cell = switch (side) {
             case TOP -> new int[]{1, 0};
             case LEFT -> new int[]{0, 1};

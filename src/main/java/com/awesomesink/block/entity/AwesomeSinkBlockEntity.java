@@ -1,6 +1,5 @@
 package com.awesomesink.block.entity;
 
-import com.awesomesink.Config;
 import com.awesomesink.data.AwesomePointsData;
 import com.awesomesink.data.SinkValuation;
 import com.awesomesink.menu.AwesomeSinkMenu;
@@ -61,6 +60,8 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
                     Integer override = SinkValuation.overrideOf(stack.getItem());
                     return override == null || override > 0;
                 });
+        // Automation: consume inserted items immediately (unbounded intake, nothing stored).
+        inventory.setInputConsumer(stack -> award(stack, stack.getCount()) > 0);
     }
 
     public ContainerData data() {
@@ -72,28 +73,34 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
     }
 
     private void tick(ServerLevel level) {
-        AwesomePointsData points = AwesomePointsData.get(level);
-        lastConsumed = sinkInput(level, points);
-        printCoupons(points);
+        lastConsumed = 0;
+        drainInputSlot();                       // manually/GUI-placed items
+        printCoupons(AwesomePointsData.get(level));
     }
 
-    private int sinkInput(ServerLevel level, AwesomePointsData points) {
+    /** Consumes anything sitting in the input slot (placed via the GUI rather than inserted). */
+    private void drainInputSlot() {
         ItemStack input = inventory.getStackInSlot(SLOT_INPUT);
-        if (input.isEmpty()) {
+        if (!input.isEmpty() && award(input, input.getCount()) > 0) {
+            inventory.setStackInSlot(SLOT_INPUT, ItemStack.EMPTY);
+        }
+    }
+
+    /** Awards points for {@code amount} of {@code stack} and returns the points granted (0 if worthless). */
+    private long award(ItemStack stack, int amount) {
+        if (!(level instanceof ServerLevel serverLevel)) {
             return 0;
         }
-        int value = SinkValuation.value(input, level.getRecipeManager(), level.registryAccess());
+        int value = SinkValuation.value(stack, serverLevel.getRecipeManager(), serverLevel.registryAccess());
         if (value <= 0) {
             return 0;
         }
-        int taken = Math.min(input.getCount(), Config.SINK_CONSUME_PER_TICK.get());
-        points.addPoints((long) value * taken);
-        input.shrink(taken);
-        inventory.setStackInSlot(SLOT_INPUT, input);
-        level.sendParticles(ParticleTypes.PORTAL,
+        AwesomePointsData.get(serverLevel).addPoints((long) value * amount);
+        lastConsumed += amount;
+        serverLevel.sendParticles(ParticleTypes.PORTAL,
                 worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5,
                 4, 0.25, 0.1, 0.25, 0.02);
-        return taken;
+        return (long) value * amount;
     }
 
     private void printCoupons(AwesomePointsData points) {

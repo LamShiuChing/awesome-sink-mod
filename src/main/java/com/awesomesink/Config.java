@@ -18,10 +18,6 @@ public final class Config {
             .comment("Cap on a coupon's cost (keeps late coupons attainable). 0 = uncapped.")
             .defineInRange("couponMaxCost", 1_000_000L, 0L, Long.MAX_VALUE);
 
-    public static final ModConfigSpec.IntValue SINK_CONSUME_PER_TICK = BUILDER
-            .comment("Items the sink consumes from its input each tick.")
-            .defineInRange("sinkConsumePerTick", 8, 1, 1024);
-
     public static final ModConfigSpec.IntValue SINK_DEFAULT_VALUE = BUILDER
             .comment("Base value for leaf items (no recipe), multiplied by the item's rarity weight. 0 = reject leaf items.")
             .defineInRange("sinkDefaultValue", 1, 0, Integer.MAX_VALUE);
