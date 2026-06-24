@@ -6,3 +6,8 @@ runs/
 .idea/
 *.iml
 .vscode/
+
+# local dev notes
+.remember/
+.devstate/
+DEVLOG.md

@@ -62,3 +62,4 @@ _Raw change trail. One line per edit. Summaries live in CLAUDE.md._
 - 21:52 — Edit `src/main/java/com/awesomesink/menu/AwesomeShopMenu.java`
 - 21:52 — Write `src/main/java/com/awesomesink/client/MachineScreen.java`
 - 22:01 — Edit `src/main/java/com/awesomesink/block/RelativeSide.java`
+- 22:05 — Edit `.gitignore`
