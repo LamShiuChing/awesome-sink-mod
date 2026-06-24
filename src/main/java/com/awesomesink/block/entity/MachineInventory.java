@@ -57,11 +57,6 @@ public class MachineInventory extends ItemStackHandler {
     }
 
     @Override
-    public ItemStack extractItem(int slot, int amount, boolean simulate) {
-        return isInput(slot) ? ItemStack.EMPTY : super.extractItem(slot, amount, simulate);
-    }
-
-    @Override
     protected void onContentsChanged(int slot) {
         onChange.run();
     }
