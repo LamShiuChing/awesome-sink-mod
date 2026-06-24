@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "awesomesink:block/awesome_shop" },
-    "facing=east":  { "model": "awesomesink:block/awesome_shop", "y": 90 },
-    "facing=south": { "model": "awesomesink:block/awesome_shop", "y": 180 },
-    "facing=west":  { "model": "awesomesink:block/awesome_shop", "y": 270 }
-  }
-}

@@ -4,6 +4,7 @@ import com.awesomesink.block.entity.ModBlockEntities;
 import com.awesomesink.data.ShopCatalog;
 import com.awesomesink.data.SinkValues;
 import com.awesomesink.network.ModNetwork;
+import com.awesomesink.network.ShopSync;
 import com.awesomesink.registry.ModBlocks;
 import com.awesomesink.registry.ModCreativeTab;
 import com.awesomesink.registry.ModItems;
@@ -29,6 +30,7 @@ public final class AwesomeSink {
         modBus.addListener(this::registerCapabilities);
         modBus.addListener(ModNetwork::register);
         NeoForge.EVENT_BUS.addListener(this::onAddReloadListeners);
+        NeoForge.EVENT_BUS.addListener(ShopSync::onDatapackSync);
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {

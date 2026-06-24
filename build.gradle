@@ -29,6 +29,9 @@ neoForge {
         }
         data {
             data()
+            programArguments.addAll '--mod', mod_id, '--all',
+                    '--output', file('src/generated/resources/').getAbsolutePath(),
+                    '--existing', file('src/main/resources/').getAbsolutePath()
         }
         configureEach {
             systemProperty 'forge.logging.console.level', 'debug'
@@ -42,3 +45,5 @@ neoForge {
         }
     }
 }
+
+sourceSets.main.resources.srcDir 'src/generated/resources'

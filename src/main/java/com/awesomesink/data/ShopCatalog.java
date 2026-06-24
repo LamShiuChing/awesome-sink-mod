@@ -34,6 +34,10 @@ public class ShopCatalog extends SimpleJsonResourceReloadListener {
         return entries.size();
     }
 
+    public List<Entry> all() {
+        return entries;
+    }
+
     public Entry get(int index) {
         return entries.isEmpty() ? null : entries.get(Math.floorMod(index, entries.size()));
     }

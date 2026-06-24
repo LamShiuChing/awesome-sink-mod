@@ -20,7 +20,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
  */
 public abstract class MachineScreen<T extends MachineMenu> extends AbstractContainerScreen<T> {
     private static final ResourceLocation BG =
-            ResourceLocation.withDefaultNamespace("textures/gui/container/dispenser.png");
+            ResourceLocation.fromNamespaceAndPath("awesomesink", "textures/gui/awesome_machine.png");
     private static final int BOX = 20;
     private static final int GAP = 22;
 

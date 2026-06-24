@@ -35,6 +35,8 @@ Minecraft mod recreating Satisfactory's AWESOME Sink + Shop: dump items into the
 - Points displayed in GUI are clamped to `int`.
 
 ## Recent Changes
+- 2026-06-23 — Added procedural textures (TexGen.java), datagen (blockstates/models/lang/loot — loot fixes no-drop bug; switched build to src/generated/resources, deleted hand JSON), and shop catalog browser (S2C catalog sync, C2S buy packet, in-GUI item grid). Compiles; testing in client.
+- 2026-06-23 — Untracked local dev notes (.devstate, DEVLOG.md) via .gitignore; pushed. Repo clean of dev scaffolding.
 - 2026-06-23 — Fixed LEFT/RIGHT side mapping (swapped clockwise/counter-clockwise so labels match player view). Pushed initial commit to GitHub (origin/main, LamShiuChing/awesome-sink-mod).
 - 2026-06-23 — Added Mekanism-style per-face side config (clean-room): RelativeSide/SideMode enums, block FACING, sided capability via DirectionalItemHandler, C2S SetSideModePayload, cube-net "I/O" GUI overlay on MachineScreen. Shared AbstractMachineBlock base. Compiling.
 - 2026-06-23 — Fixed crash: `GSON` declared after `INSTANCE` in SinkValues/ShopCatalog → null gson passed to reload listener (static-init order). Reordered GSON first.

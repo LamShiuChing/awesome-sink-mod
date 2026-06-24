@@ -7,6 +7,9 @@ runs/
 *.iml
 .vscode/
 
+# datagen cache (regenerate with ./gradlew runData)
+src/generated/resources/.cache/
+
 # local dev notes
 .remember/
 .devstate/
