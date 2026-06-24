@@ -35,6 +35,9 @@ Minecraft mod recreating Satisfactory's AWESOME Sink + Shop: dump items into the
 - Points displayed in GUI are clamped to `int`.
 
 ## Recent Changes
+- 2026-06-23 — UI polish v2: real bold-border fix was the slot sprite (heavy 18x18 dark frame → vanilla 1px dark/white bevel in TexGen.slot); white 32px furnace arrow fill; moved machine slots to y40; moved sink "Next" label under the arrow (was overlapping the I/O button).
+- 2026-06-23 — UI polish: removed duplicate renderTooltip in MachineScreen, tightened label spacing, furnace arrow progress sprite, Rate N/t readout (DATA_RATE ContainerData slot).
+- 2026-06-23 — Added sink portal particles (while consuming) + advancements (root 'AWESOME'→'FICSIT Coupon') via datagen; pushed c4d4c72.
 - 2026-06-23 — Added feedback sounds (vanilla events, no assets): amethyst chime on coupon print, xp-pickup on purchase; pushed 74e4677.
 - 2026-06-23 — Added common config (ModConfigSpec: coupon base/factor, sink rate) + shop catalog scrolling; pushed b2f8dc9. Coupon cost + sink rate now tunable.
 - 2026-06-23 — Added coupon progress bar to sink GUI (unspent points → next coupon cost); pushed db9f50c.
@@ -43,5 +46,3 @@ Minecraft mod recreating Satisfactory's AWESOME Sink + Shop: dump items into the
 - 2026-06-23 — Added procedural textures (TexGen.java), datagen (blockstates/models/lang/loot — loot fixes no-drop bug; switched build to src/generated/resources, deleted hand JSON), and shop catalog browser (S2C catalog sync, C2S buy packet, in-GUI item grid). Compiles; testing in client.
 - 2026-06-23 — Untracked local dev notes (.devstate, DEVLOG.md) via .gitignore; pushed. Repo clean of dev scaffolding.
 - 2026-06-23 — Fixed LEFT/RIGHT side mapping (swapped clockwise/counter-clockwise so labels match player view). Pushed initial commit to GitHub (origin/main, LamShiuChing/awesome-sink-mod).
-- 2026-06-23 — Added Mekanism-style per-face side config (clean-room): RelativeSide/SideMode enums, block FACING, sided capability via DirectionalItemHandler, C2S SetSideModePayload, cube-net "I/O" GUI overlay on MachineScreen. Shared AbstractMachineBlock base. Compiling.
-- 2026-06-23 — Fixed crash: `GSON` declared after `INSTANCE` in SinkValues/ShopCatalog → null gson passed to reload listener (static-init order). Reordered GSON first.

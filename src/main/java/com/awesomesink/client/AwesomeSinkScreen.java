@@ -11,21 +11,25 @@ public class AwesomeSinkScreen extends MachineScreen<AwesomeSinkMenu> {
     }
 
     @Override
+    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+        super.renderBg(graphics, partialTick, mouseX, mouseY);
+        int ax = leftPos + 78, ay = topPos + 40;
+        graphics.blit(BG, ax, ay, 176, 0, 32, 16);
+        int cost = menu.nextCost();
+        int filled = cost > 0 ? Math.min(32, (int) ((long) 32 * menu.points() / cost)) : 0;
+        if (filled > 0) {
+            graphics.blit(BG, ax, ay, 176, 18, filled, 16);
+        }
+    }
+
+    @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         super.renderLabels(graphics, mouseX, mouseY);
         graphics.drawString(font, Component.translatable("screen.awesomesink.points", menu.points()),
-                8, 18, 0x404040, false);
+                8, 16, 0x404040, false);
+        graphics.drawString(font, Component.translatable("screen.awesomesink.rate", menu.rate()),
+                8, 26, 0x404040, false);
         graphics.drawString(font, Component.translatable("screen.awesomesink.next_coupon", menu.nextCost()),
-                8, 28, 0x404040, false);
-        couponProgressBar(graphics);
-    }
-
-    /** Bar showing the unspent points pool filling toward the next coupon. */
-    private void couponProgressBar(GuiGraphics graphics) {
-        int x = 8, y = 52, w = 160, h = 6;
-        int cost = menu.nextCost();
-        int filled = cost > 0 ? Math.min(w, (int) ((long) w * menu.points() / cost)) : 0;
-        graphics.fill(x, y, x + w, y + h, 0xFF373737);
-        graphics.fill(x, y, x + filled, y + h, 0xFFE9C46A);
+                62, 60, 0x404040, false);
     }
 }

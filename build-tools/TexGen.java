@@ -88,21 +88,34 @@ public class TexGen {
         fill(b, 0, 0, 1, 166, 0xFFFFFFFF);
         fill(b, 0, 165, 176, 1, 0xFF555555);
         fill(b, 175, 0, 1, 166, 0xFF555555);
-        slot(b, 56, 35);   // machine input
-        slot(b, 116, 35);  // machine output
+        slot(b, 56, 40);   // machine input
+        slot(b, 116, 40);  // machine output
         for (int row = 0; row < 3; row++)
             for (int col = 0; col < 9; col++)
                 slot(b, 8 + col * 18, 84 + row * 18);
         for (int col = 0; col < 9; col++) slot(b, 8 + col * 18, 142);
+        // Furnace-style progress arrow sprites, off-panel: empty at (176,0), full (white) at (176,18).
+        arrow(b, 176, 0, 32, 0xFF4A4A4A);
+        arrow(b, 176, 18, 32, 0xFFFFFFFF);
         return b;
     }
 
+    // Right-pointing arrow w px wide, 16 tall: a 9px-tall body widening into a triangular head.
+    static void arrow(BufferedImage b, int ox, int oy, int w, int color) {
+        int head = w - 12;
+        for (int x = 0; x < w; x++) {
+            int half = Math.min(7, x < w - head ? 4 : (int) Math.round((w - 1 - x) * 7.0 / head));
+            for (int y = 7 - half; y <= 8 + half; y++) b.setRGB(ox + x, oy + y, color);
+        }
+    }
+
+    // Vanilla-style inset slot: 16x16 interior, 1px dark top/left + 1px white bottom/right bevel.
     static void slot(BufferedImage b, int x, int y) {
-        fill(b, x - 1, y - 1, 18, 18, 0xFF373737);
-        fill(b, x, y, 17, 17, 0xFFC6C6C6);
         fill(b, x, y, 16, 16, 0xFF8B8B8B);
-        fill(b, x, y, 16, 1, 0xFF373737);
-        fill(b, x, y, 1, 16, 0xFF373737);
+        fill(b, x - 1, y - 1, 17, 1, 0xFF373737);
+        fill(b, x - 1, y - 1, 1, 17, 0xFF373737);
+        fill(b, x - 1, y + 16, 18, 1, 0xFFFFFFFF);
+        fill(b, x + 16, y - 1, 1, 18, 0xFFFFFFFF);
     }
 
     static int blend(int a, int c, float t) {

@@ -25,8 +25,8 @@ public class AwesomeShopMenu extends MachineMenu {
         super(ModMenus.AWESOME_SHOP.get(), id, ModBlocks.AWESOME_SHOP.get(), data,
                 ContainerLevelAccess.create(be.getLevel(), be.getBlockPos()), 2, be.getBlockPos());
         IItemHandler handler = be.inventory();
-        addSlot(new SlotItemHandler(handler, AwesomeShopBlockEntity.SLOT_COUPONS, 56, 35));
-        addSlot(new SlotItemHandler(handler, AwesomeShopBlockEntity.SLOT_OUTPUT, 116, 35));
+        addSlot(new SlotItemHandler(handler, AwesomeShopBlockEntity.SLOT_COUPONS, 56, 40));
+        addSlot(new SlotItemHandler(handler, AwesomeShopBlockEntity.SLOT_OUTPUT, 116, 40));
         addPlayerInventory(inv);
     }
 

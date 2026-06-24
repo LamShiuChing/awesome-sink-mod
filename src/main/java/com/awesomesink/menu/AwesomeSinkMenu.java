@@ -25,8 +25,8 @@ public class AwesomeSinkMenu extends MachineMenu {
         super(ModMenus.AWESOME_SINK.get(), id, ModBlocks.AWESOME_SINK.get(), data,
                 ContainerLevelAccess.create(be.getLevel(), be.getBlockPos()), 2, be.getBlockPos());
         IItemHandler handler = be.inventory();
-        addSlot(new SlotItemHandler(handler, AwesomeSinkBlockEntity.SLOT_INPUT, 56, 35));
-        addSlot(new SlotItemHandler(handler, AwesomeSinkBlockEntity.SLOT_OUTPUT, 116, 35));
+        addSlot(new SlotItemHandler(handler, AwesomeSinkBlockEntity.SLOT_INPUT, 56, 40));
+        addSlot(new SlotItemHandler(handler, AwesomeSinkBlockEntity.SLOT_OUTPUT, 116, 40));
         addPlayerInventory(inv);
     }
 
@@ -36,6 +36,10 @@ public class AwesomeSinkMenu extends MachineMenu {
 
     public int nextCost() {
         return data.get(AwesomeSinkBlockEntity.DATA_NEXT_COST);
+    }
+
+    public int rate() {
+        return data.get(AwesomeSinkBlockEntity.DATA_RATE);
     }
 
     private static AwesomeSinkBlockEntity resolve(Inventory inv, BlockPos pos) {

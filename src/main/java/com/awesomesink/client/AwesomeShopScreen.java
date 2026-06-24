@@ -36,9 +36,9 @@ public class AwesomeShopScreen extends MachineScreen<AwesomeShopMenu> {
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         super.renderLabels(graphics, mouseX, mouseY);
         graphics.drawString(font, Component.translatable("screen.awesomesink.price", menu.price()),
-                8, 18, 0x404040, false);
+                8, 16, 0x404040, false);
         graphics.drawString(font, Component.translatable("screen.awesomesink.shop_hint"),
-                8, 28, 0x707070, false);
+                8, 26, 0x707070, false);
     }
 
     @Override

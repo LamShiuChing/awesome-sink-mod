@@ -11,8 +11,9 @@
   "message.awesomesink.shop_empty": "Shop catalog is empty",
   "message.awesomesink.shop_selected": "Selling %sx %s for %s coupons",
   "screen.awesomesink.balance": "Coupons: %s",
-  "screen.awesomesink.next_coupon": "Next coupon: %s",
+  "screen.awesomesink.next_coupon": "Next: %s",
   "screen.awesomesink.points": "Points: %s",
-  "screen.awesomesink.price": "Price: %s coupons",
-  "screen.awesomesink.shop_hint": "Shift-right-click block to change item"
+  "screen.awesomesink.price": "Price: %s",
+  "screen.awesomesink.rate": "Rate: %s/t",
+  "screen.awesomesink.shop_hint": "Shift-RClick: cycle item"
 }

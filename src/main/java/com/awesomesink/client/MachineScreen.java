@@ -19,7 +19,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
  * (own implementation) toggled by an "I/O" button — a cube-net of six faces, click to cycle mode.
  */
 public abstract class MachineScreen<T extends MachineMenu> extends AbstractContainerScreen<T> {
-    private static final ResourceLocation BG =
+    protected static final ResourceLocation BG =
             ResourceLocation.fromNamespaceAndPath("awesomesink", "textures/gui/awesome_machine.png");
     private static final int BOX = 20;
     private static final int GAP = 22;
@@ -48,7 +48,6 @@ public abstract class MachineScreen<T extends MachineMenu> extends AbstractConta
         if (showConfig) {
             renderSideConfig(graphics);
         }
-        renderTooltip(graphics, mouseX, mouseY);
     }
 
     private void renderSideConfig(GuiGraphics graphics) {

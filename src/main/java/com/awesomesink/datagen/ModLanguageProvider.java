@@ -20,9 +20,10 @@ public class ModLanguageProvider extends LanguageProvider {
         add("item.awesomesink.coupon.desc", "Spend in the AWESOME Shop");
 
         add("screen.awesomesink.points", "Points: %s");
-        add("screen.awesomesink.next_coupon", "Next coupon: %s");
-        add("screen.awesomesink.price", "Price: %s coupons");
-        add("screen.awesomesink.shop_hint", "Shift-right-click block to change item");
+        add("screen.awesomesink.next_coupon", "Next: %s");
+        add("screen.awesomesink.rate", "Rate: %s/t");
+        add("screen.awesomesink.price", "Price: %s");
+        add("screen.awesomesink.shop_hint", "Shift-RClick: cycle item");
         add("screen.awesomesink.balance", "Coupons: %s");
 
         add("message.awesomesink.shop_empty", "Shop catalog is empty");

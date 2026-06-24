@@ -25,14 +25,20 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
     public static final int SLOT_OUTPUT = 1;
     public static final int DATA_POINTS = 0;
     public static final int DATA_NEXT_COST = 1;
+    public static final int DATA_RATE = 2;
 
-    private final int[] clientData = new int[2];
+    private int lastConsumed;
+    private final int[] clientData = new int[3];
     private final ContainerData data = new ContainerData() {
         @Override
         public int get(int index) {
             if (level instanceof ServerLevel server) {
-                AwesomePointsData d = AwesomePointsData.get(server);
-                long value = index == DATA_POINTS ? d.points() : d.nextCouponCost();
+                if (index == DATA_RATE) {
+                    return lastConsumed;
+                }
+                long value = index == DATA_POINTS
+                        ? AwesomePointsData.get(server).points()
+                        : AwesomePointsData.get(server).nextCouponCost();
                 return (int) Math.min(value, Integer.MAX_VALUE);
             }
             return clientData[index];
@@ -45,7 +51,7 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     };
 
@@ -64,23 +70,24 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
 
     private void tick(ServerLevel level) {
         AwesomePointsData points = AwesomePointsData.get(level);
-        sinkInput(points);
+        lastConsumed = sinkInput(level, points);
         printCoupons(points);
     }
 
-    private void sinkInput(AwesomePointsData points) {
+    private int sinkInput(ServerLevel level, AwesomePointsData points) {
         ItemStack input = inventory.getStackInSlot(SLOT_INPUT);
         int value = SinkValues.INSTANCE.get(input.getItem());
         if (input.isEmpty() || value <= 0) {
-            return;
+            return 0;
         }
         int taken = Math.min(input.getCount(), Config.SINK_CONSUME_PER_TICK.get());
         points.addPoints((long) value * taken);
         input.shrink(taken);
         inventory.setStackInSlot(SLOT_INPUT, input);
-        ((ServerLevel) level).sendParticles(ParticleTypes.PORTAL,
+        level.sendParticles(ParticleTypes.PORTAL,
                 worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5,
                 4, 0.25, 0.1, 0.25, 0.02);
+        return taken;
     }
 
     private void printCoupons(AwesomePointsData points) {
