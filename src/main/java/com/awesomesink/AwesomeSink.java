@@ -10,7 +10,9 @@ import com.awesomesink.registry.ModCreativeTab;
 import com.awesomesink.registry.ModItems;
 import com.awesomesink.registry.ModMenus;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -20,7 +22,9 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
 public final class AwesomeSink {
     public static final String MODID = "awesomesink";
 
-    public AwesomeSink(IEventBus modBus) {
+    public AwesomeSink(IEventBus modBus, ModContainer container) {
+        container.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
         ModBlocks.BLOCKS.register(modBus);
         ModItems.ITEMS.register(modBus);
         ModBlockEntities.BLOCK_ENTITIES.register(modBus);

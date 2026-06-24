@@ -1,5 +1,6 @@
 package com.awesomesink.data;
 
+import com.awesomesink.Config;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -12,8 +13,6 @@ import net.minecraft.world.level.saveddata.SavedData;
  */
 public class AwesomePointsData extends SavedData {
     private static final String NAME = "awesomesink_points";
-    private static final long BASE_COST = 1000;
-    private static final long FACTOR = 500;
 
     private long points;
     private int couponsPrinted;
@@ -32,12 +31,13 @@ public class AwesomePointsData extends SavedData {
     }
 
     public long nextCouponCost() {
+        long base = Config.COUPON_BASE_COST.get();
         int n = couponsPrinted + 1;
         if (n <= 3) {
-            return BASE_COST;
+            return base;
         }
         long k = (long) Math.ceil(n / 3.0) - 1;
-        return FACTOR * k * k + BASE_COST;
+        return (long) Config.COUPON_COST_FACTOR.get() * k * k + base;
     }
 
     public void addPoints(long amount) {

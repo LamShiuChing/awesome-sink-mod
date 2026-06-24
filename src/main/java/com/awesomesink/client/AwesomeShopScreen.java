@@ -16,8 +16,10 @@ import net.neoforged.neoforge.network.PacketDistributor;
 public class AwesomeShopScreen extends MachineScreen<AwesomeShopMenu> {
     private static final int COLS = 8;
     private static final int CELL = 18;
+    private static final int ROWS_VISIBLE = 4;
 
     private boolean showShop;
+    private int scroll;
 
     public AwesomeShopScreen(AwesomeShopMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
@@ -49,7 +51,8 @@ public class AwesomeShopScreen extends MachineScreen<AwesomeShopMenu> {
 
     private void renderBrowser(GuiGraphics graphics, int mouseX, int mouseY) {
         List<ShopCatalog.Entry> entries = ClientShopCatalog.entries();
-        int rows = Math.max(1, (entries.size() + COLS - 1) / COLS);
+        int totalRows = Math.max(1, (entries.size() + COLS - 1) / COLS);
+        int rows = Math.min(totalRows, ROWS_VISIBLE);
         int x0 = leftPos + 7;
         int y0 = topPos + 16;
         graphics.fill(x0, y0, x0 + COLS * CELL + 2, y0 + rows * CELL + 12, 0xF01A1A1A);
@@ -57,6 +60,9 @@ public class AwesomeShopScreen extends MachineScreen<AwesomeShopMenu> {
                 x0 + 3, y0 + 2, 0xFFE9C46A, false);
 
         for (int i = 0; i < entries.size(); i++) {
+            if (!onScreen(i)) {
+                continue;
+            }
             int[] c = cell(i);
             ItemStack stack = new ItemStack(entries.get(i).item(), entries.get(i).count());
             graphics.renderItem(stack, c[0], c[1]);
@@ -84,12 +90,30 @@ public class AwesomeShopScreen extends MachineScreen<AwesomeShopMenu> {
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double dx, double dy) {
+        if (showShop) {
+            int max = Math.max(0, (ClientShopCatalog.entries().size() + COLS - 1) / COLS - ROWS_VISIBLE);
+            scroll = Math.max(0, Math.min(max, scroll - (int) Math.signum(dy)));
+            return true;
+        }
+        return super.mouseScrolled(mouseX, mouseY, dx, dy);
+    }
+
+    private boolean onScreen(int index) {
+        int row = index / COLS - scroll;
+        return row >= 0 && row < ROWS_VISIBLE;
+    }
+
     private int[] cell(int index) {
-        return new int[]{leftPos + 8 + (index % COLS) * CELL, topPos + 27 + (index / COLS) * CELL};
+        return new int[]{leftPos + 8 + (index % COLS) * CELL, topPos + 27 + (index / COLS - scroll) * CELL};
     }
 
     private int cellAt(int mouseX, int mouseY, int size) {
         for (int i = 0; i < size; i++) {
+            if (!onScreen(i)) {
+                continue;
+            }
             int[] c = cell(i);
             if (mouseX >= c[0] && mouseX < c[0] + 16 && mouseY >= c[1] && mouseY < c[1] + 16) {
                 return i;

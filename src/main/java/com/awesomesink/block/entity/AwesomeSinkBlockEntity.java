@@ -1,5 +1,6 @@
 package com.awesomesink.block.entity;
 
+import com.awesomesink.Config;
 import com.awesomesink.data.AwesomePointsData;
 import com.awesomesink.data.SinkValues;
 import com.awesomesink.menu.AwesomeSinkMenu;
@@ -21,8 +22,6 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
     public static final int SLOT_OUTPUT = 1;
     public static final int DATA_POINTS = 0;
     public static final int DATA_NEXT_COST = 1;
-
-    private static final int CONSUME_PER_TICK = 8;
 
     private final int[] clientData = new int[2];
     private final ContainerData data = new ContainerData() {
@@ -72,7 +71,7 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
         if (input.isEmpty() || value <= 0) {
             return;
         }
-        int taken = Math.min(input.getCount(), CONSUME_PER_TICK);
+        int taken = Math.min(input.getCount(), Config.SINK_CONSUME_PER_TICK.get());
         points.addPoints((long) value * taken);
         input.shrink(taken);
         inventory.setStackInSlot(SLOT_INPUT, input);
