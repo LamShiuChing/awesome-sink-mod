@@ -1,0 +1,64 @@
+# Dev Log
+
+_Raw change trail. One line per edit. Summaries live in CLAUDE.md._
+
+## 2026-06-24
+- 21:23 — Write `settings.gradle`
+- 21:23 — Write `gradle.properties`
+- 21:23 — Write `build.gradle`
+- 21:23 — Write `src/main/resources/META-INF/neoforge.mods.toml`
+- 21:23 — Write `src/main/resources/pack.mcmeta`
+- 21:27 — Write `src/main/java/com/awesomesink/AwesomeSink.java`
+- 21:27 — Write `src/main/java/com/awesomesink/registry/ModBlocks.java`
+- 21:27 — Write `src/main/java/com/awesomesink/registry/ModItems.java`
+- 21:27 — Write `src/main/java/com/awesomesink/block/entity/ModBlockEntities.java`
+- 21:27 — Write `src/main/java/com/awesomesink/registry/ModMenus.java`
+- 21:27 — Write `src/main/java/com/awesomesink/registry/ModCreativeTab.java`
+- 21:27 — Write `src/main/java/com/awesomesink/item/CouponItem.java`
+- 21:27 — Write `src/main/java/com/awesomesink/block/entity/MachineInventory.java`
+- 21:28 — Write `src/main/java/com/awesomesink/data/AwesomePointsData.java`
+- 21:28 — Write `src/main/java/com/awesomesink/data/SinkValues.java`
+- 21:28 — Write `src/main/java/com/awesomesink/data/ShopCatalog.java`
+- 21:28 — Write `src/main/java/com/awesomesink/block/AwesomeSinkBlock.java`
+- 21:28 — Write `src/main/java/com/awesomesink/block/AwesomeShopBlock.java`
+- 21:29 — Write `src/main/java/com/awesomesink/block/entity/AbstractMachineBlockEntity.java`
+- 21:29 — Write `src/main/java/com/awesomesink/block/entity/AwesomeSinkBlockEntity.java`
+- 21:30 — Write `src/main/java/com/awesomesink/block/entity/AwesomeShopBlockEntity.java`
+- 21:30 — Write `src/main/java/com/awesomesink/menu/MachineMenu.java`
+- 21:31 — Write `src/main/java/com/awesomesink/menu/AwesomeSinkMenu.java`
+- 21:31 — Write `src/main/java/com/awesomesink/menu/AwesomeShopMenu.java`
+- 21:31 — Write `src/main/java/com/awesomesink/client/MachineScreen.java`
+- 21:31 — Write `src/main/java/com/awesomesink/client/AwesomeSinkScreen.java`
+- 21:31 — Write `src/main/java/com/awesomesink/client/AwesomeShopScreen.java`
+- 21:31 — Write `src/main/java/com/awesomesink/client/ClientSetup.java`
+- 21:32 — Write `src/main/resources/assets/awesomesink/blockstates/awesome_sink.json`
+- 21:32 — Write `src/main/resources/assets/awesomesink/blockstates/awesome_shop.json`
+- 21:32 — Write `src/main/resources/assets/awesomesink/models/block/awesome_sink.json`
+- 21:32 — Write `src/main/resources/assets/awesomesink/models/block/awesome_shop.json`
+- 21:32 — Write `src/main/resources/assets/awesomesink/models/item/awesome_sink.json`
+- 21:32 — Write `src/main/resources/assets/awesomesink/models/item/awesome_shop.json`
+- 21:32 — Write `src/main/resources/assets/awesomesink/models/item/coupon.json`
+- 21:32 — Write `src/main/resources/assets/awesomesink/lang/en_us.json`
+- 21:32 — Write `src/main/resources/data/awesomesink/sink_values/default.json`
+- 21:32 — Write `src/main/resources/data/awesomesink/shop_catalog/default.json`
+- 21:32 — Write `.gitignore`
+- 21:33 — Write `.remember/remember.md`
+- 21:38 — Edit `src/main/java/com/awesomesink/data/SinkValues.java`
+- 21:38 — Edit `src/main/java/com/awesomesink/data/ShopCatalog.java`
+- 21:48 — Write `src/main/java/com/awesomesink/block/RelativeSide.java`
+- 21:48 — Write `src/main/java/com/awesomesink/block/SideMode.java`
+- 21:48 — Write `src/main/java/com/awesomesink/block/entity/DirectionalItemHandler.java`
+- 21:49 — Write `src/main/java/com/awesomesink/block/AbstractMachineBlock.java`
+- 21:49 — Write `src/main/java/com/awesomesink/block/AwesomeSinkBlock.java`
+- 21:49 — Write `src/main/java/com/awesomesink/block/AwesomeShopBlock.java`
+- 21:50 — Write `src/main/java/com/awesomesink/block/entity/AbstractMachineBlockEntity.java`
+- 21:50 — Edit `src/main/java/com/awesomesink/AwesomeSink.java`
+- 21:51 — Write `src/main/java/com/awesomesink/network/SetSideModePayload.java`
+- 21:51 — Write `src/main/java/com/awesomesink/network/ModNetwork.java`
+- 21:51 — Write `src/main/resources/assets/awesomesink/blockstates/awesome_sink.json`
+- 21:51 — Write `src/main/resources/assets/awesomesink/blockstates/awesome_shop.json`
+- 21:51 — Edit `src/main/java/com/awesomesink/menu/MachineMenu.java`
+- 21:52 — Edit `src/main/java/com/awesomesink/menu/AwesomeSinkMenu.java`
+- 21:52 — Edit `src/main/java/com/awesomesink/menu/AwesomeShopMenu.java`
+- 21:52 — Write `src/main/java/com/awesomesink/client/MachineScreen.java`
+- 22:01 — Edit `src/main/java/com/awesomesink/block/RelativeSide.java`

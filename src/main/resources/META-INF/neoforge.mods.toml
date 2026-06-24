@@ -1,0 +1,25 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "awesomesink"
+version = "1.0.0"
+displayName = "AWESOME Sink"
+description = '''
+Dump excess items into the AWESOME Sink for points, print FICSIT Coupons, and spend them in the AWESOME Shop.
+'''
+
+[[dependencies.awesomesink]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.awesomesink]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.22)"
+ordering = "NONE"
+side = "BOTH"

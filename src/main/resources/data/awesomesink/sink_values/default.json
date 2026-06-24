@@ -1,0 +1,18 @@
+{
+  "minecraft:dirt": 1,
+  "minecraft:cobblestone": 1,
+  "minecraft:sand": 1,
+  "minecraft:gravel": 1,
+  "minecraft:oak_log": 4,
+  "minecraft:cobbled_deepslate": 2,
+  "minecraft:coal": 6,
+  "minecraft:copper_ingot": 12,
+  "minecraft:iron_ingot": 24,
+  "minecraft:gold_ingot": 48,
+  "minecraft:redstone": 10,
+  "minecraft:lapis_lazuli": 18,
+  "minecraft:emerald": 160,
+  "minecraft:diamond": 200,
+  "minecraft:netherite_scrap": 600,
+  "minecraft:netherite_ingot": 2560
+}

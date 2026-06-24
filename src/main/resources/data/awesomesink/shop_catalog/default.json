@@ -1,0 +1,7 @@
+[
+  { "item": "minecraft:iron_ingot", "price": 1, "count": 8 },
+  { "item": "minecraft:gold_ingot", "price": 2, "count": 8 },
+  { "item": "minecraft:diamond", "price": 3, "count": 1 },
+  { "item": "minecraft:experience_bottle", "price": 2, "count": 4 },
+  { "item": "minecraft:netherite_scrap", "price": 20, "count": 1 }
+]

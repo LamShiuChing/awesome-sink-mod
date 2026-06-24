@@ -1,0 +1,112 @@
+package com.awesomesink.block.entity;
+
+import com.awesomesink.data.AwesomePointsData;
+import com.awesomesink.data.SinkValues;
+import com.awesomesink.menu.AwesomeSinkMenu;
+import com.awesomesink.registry.ModItems;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+
+public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
+    public static final int SLOT_INPUT = 0;
+    public static final int SLOT_OUTPUT = 1;
+    public static final int DATA_POINTS = 0;
+    public static final int DATA_NEXT_COST = 1;
+
+    private static final int CONSUME_PER_TICK = 8;
+
+    private final int[] clientData = new int[2];
+    private final ContainerData data = new ContainerData() {
+        @Override
+        public int get(int index) {
+            if (level instanceof ServerLevel server) {
+                AwesomePointsData d = AwesomePointsData.get(server);
+                long value = index == DATA_POINTS ? d.points() : d.nextCouponCost();
+                return (int) Math.min(value, Integer.MAX_VALUE);
+            }
+            return clientData[index];
+        }
+
+        @Override
+        public void set(int index, int value) {
+            clientData[index] = value;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    };
+
+    public AwesomeSinkBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.AWESOME_SINK.get(), pos, state, 1, 1,
+                (slot, stack) -> SinkValues.INSTANCE.get(stack.getItem()) > 0);
+    }
+
+    public ContainerData data() {
+        return data;
+    }
+
+    public static void serverTick(Level level, BlockPos pos, BlockState state, AwesomeSinkBlockEntity be) {
+        be.tick((ServerLevel) level);
+    }
+
+    private void tick(ServerLevel level) {
+        AwesomePointsData points = AwesomePointsData.get(level);
+        sinkInput(points);
+        printCoupons(points);
+    }
+
+    private void sinkInput(AwesomePointsData points) {
+        ItemStack input = inventory.getStackInSlot(SLOT_INPUT);
+        int value = SinkValues.INSTANCE.get(input.getItem());
+        if (input.isEmpty() || value <= 0) {
+            return;
+        }
+        int taken = Math.min(input.getCount(), CONSUME_PER_TICK);
+        points.addPoints((long) value * taken);
+        input.shrink(taken);
+        inventory.setStackInSlot(SLOT_INPUT, input);
+    }
+
+    private void printCoupons(AwesomePointsData points) {
+        ItemStack output = inventory.getStackInSlot(SLOT_OUTPUT);
+        if (!output.isEmpty() && !output.is(ModItems.COUPON.get())) {
+            return;
+        }
+        int space = (output.isEmpty() ? new ItemStack(ModItems.COUPON.get()).getMaxStackSize() : output.getMaxStackSize())
+                - output.getCount();
+        int printed = 0;
+        while (printed < space && points.tryPrintCoupon()) {
+            printed++;
+        }
+        if (printed > 0) {
+            if (output.isEmpty()) {
+                inventory.setStackInSlot(SLOT_OUTPUT, new ItemStack(ModItems.COUPON.get(), printed));
+            } else {
+                output.grow(printed);
+                inventory.setStackInSlot(SLOT_OUTPUT, output);
+            }
+        }
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("block.awesomesink.awesome_sink");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
+        return new AwesomeSinkMenu(id, playerInventory, this, data);
+    }
+}
