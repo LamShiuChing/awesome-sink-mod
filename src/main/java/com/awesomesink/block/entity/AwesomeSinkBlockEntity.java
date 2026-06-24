@@ -26,14 +26,15 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
     public static final int DATA_NEXT_COST = 1;
     public static final int DATA_RATE = 2;
 
-    private int lastConsumed;
+    private int rate;       // items consumed during the previous tick (for display)
+    private int consumed;   // accumulator for the current tick
     private final int[] clientData = new int[3];
     private final ContainerData data = new ContainerData() {
         @Override
         public int get(int index) {
             if (level instanceof ServerLevel server) {
                 if (index == DATA_RATE) {
-                    return lastConsumed;
+                    return rate;
                 }
                 long value = index == DATA_POINTS
                         ? AwesomePointsData.get(server).points()
@@ -73,7 +74,8 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
     }
 
     private void tick(ServerLevel level) {
-        lastConsumed = 0;
+        rate = consumed;                        // snapshot last tick's throughput before resetting
+        consumed = 0;
         drainInputSlot();                       // manually/GUI-placed items
         printCoupons(AwesomePointsData.get(level));
     }
@@ -96,7 +98,7 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
             return 0;
         }
         AwesomePointsData.get(serverLevel).addPoints((long) value * amount);
-        lastConsumed += amount;
+        consumed += amount;
         serverLevel.sendParticles(ParticleTypes.PORTAL,
                 worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5,
                 4, 0.25, 0.1, 0.25, 0.02);

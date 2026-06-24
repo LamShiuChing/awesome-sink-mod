@@ -35,6 +35,7 @@ Minecraft mod recreating Satisfactory's AWESOME Sink + Shop: dump items into the
 - Points displayed in GUI are clamped to `int`.
 
 ## Recent Changes
+- 2026-06-24 — Fixed items/tick rate readout: was reset in tick() then re-accumulated, but consume-on-insert could add before the BE tick → wiped to 0. Now snapshots prev-tick accumulator (rate=consumed; consumed=0). Confirmed K/M/B display needs a stored amount + IItemDecorator (AE2/SophBackpacks pattern), not >99 stacks.
 - 2026-06-24 — Unbounded sink intake via consume-on-insert: MachineInventory.InputConsumer awards points the instant items are inserted (stores nothing) → no throughput cap. Reverted oversized input buffer that crashed (MC hard-caps item stacks at [1;99]; >99 fails to save). GUI-placed items still drained per tick. Removed sinkConsumePerTick config.
 - 2026-06-24 — Fixed I/O overlay overlapping JEI (moved inside GUI panel, dark backdrop). Added neighbor update on cycleSide so pipes (Pipez) re-scan when a face is enabled (cap invalidation alone didn't trigger their reconnect). Testing with JEI/Pipez/Cobble Gen in run/mods.
 - 2026-06-24 — Committed + pushed valuation + economy batch (656c764): recipe-cost SinkValuation, intake-all, tooltips, high anchors, linear coupon curve.
@@ -44,4 +45,3 @@ Minecraft mod recreating Satisfactory's AWESOME Sink + Shop: dump items into the
 - 2026-06-23 — Sink now accepts ANY item; value derived by formula (SinkValuation): raw=rarity-scaled base (sinkDefaultValue×1/4/16/64), crafted=ceil(Σ cheapest ingredient values/output count), recursive+memoized+cycle-guarded. JSON sink_values = optional override, synced to client. Item tooltip shows sink value (ItemTooltipEvent).
 - 2026-06-23 — Committed + pushed GUI polish (44f2321): vanilla slot bevel, no bold tooltips, white 32px furnace arrow, items/tick, roomier layout.
 - 2026-06-23 — UI polish v2: real bold-border fix was the slot sprite (heavy 18x18 dark frame → vanilla 1px dark/white bevel in TexGen.slot); white 32px furnace arrow fill; moved machine slots to y40; moved sink "Next" label under the arrow (was overlapping the I/O button).
-- 2026-06-23 — Added sink portal particles (while consuming) + advancements (root 'AWESOME'→'FICSIT Coupon') via datagen; pushed c4d4c72.
