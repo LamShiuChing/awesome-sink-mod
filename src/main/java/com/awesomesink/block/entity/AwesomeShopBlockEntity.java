@@ -1,6 +1,7 @@
 package com.awesomesink.block.entity;
 
 import com.awesomesink.data.ShopCatalog;
+import com.awesomesink.item.CouponItem;
 import com.awesomesink.menu.AwesomeShopMenu;
 import com.awesomesink.registry.ModItems;
 import net.minecraft.core.BlockPos;
@@ -80,7 +81,7 @@ public class AwesomeShopBlockEntity extends AbstractMachineBlockEntity {
             return;
         }
         ItemStack coupons = inventory.getStackInSlot(SLOT_COUPONS);
-        if (coupons.getCount() < entry.price()) {
+        if (coupons.isEmpty() || CouponItem.amount(coupons) < entry.price()) {
             return;
         }
         ItemStack output = inventory.getStackInSlot(SLOT_OUTPUT);
@@ -89,8 +90,12 @@ public class AwesomeShopBlockEntity extends AbstractMachineBlockEntity {
         if (!fits) {
             return;
         }
-        coupons.shrink(entry.price());
-        inventory.setStackInSlot(SLOT_COUPONS, coupons);
+        if (CouponItem.amount(coupons) <= entry.price()) {
+            inventory.setStackInSlot(SLOT_COUPONS, ItemStack.EMPTY);
+        } else {
+            CouponItem.add(coupons, -entry.price());
+            inventory.setStackInSlot(SLOT_COUPONS, coupons);
+        }
         if (output.isEmpty()) {
             inventory.setStackInSlot(SLOT_OUTPUT, new ItemStack(entry.item(), entry.count()));
         } else {

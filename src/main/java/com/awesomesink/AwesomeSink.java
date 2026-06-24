@@ -7,6 +7,7 @@ import com.awesomesink.network.ModNetwork;
 import com.awesomesink.network.ShopSync;
 import com.awesomesink.registry.ModBlocks;
 import com.awesomesink.registry.ModCreativeTab;
+import com.awesomesink.registry.ModDataComponents;
 import com.awesomesink.registry.ModItems;
 import com.awesomesink.registry.ModMenus;
 import net.neoforged.bus.api.IEventBus;
@@ -25,6 +26,7 @@ public final class AwesomeSink {
     public AwesomeSink(IEventBus modBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
+        ModDataComponents.COMPONENTS.register(modBus);
         ModBlocks.BLOCKS.register(modBus);
         ModItems.ITEMS.register(modBus);
         ModBlockEntities.BLOCK_ENTITIES.register(modBus);

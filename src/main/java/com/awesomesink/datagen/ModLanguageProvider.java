@@ -19,6 +19,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(ModItems.COUPON.get(), "FICSIT Coupon");
         add("item.awesomesink.coupon.desc", "Spend in the AWESOME Shop");
         add("tooltip.awesomesink.sink_value", "Sink value: %s");
+        add("tooltip.awesomesink.coupon_amount", "%s coupons");
 
         add("screen.awesomesink.points", "Points: %s");
         add("screen.awesomesink.next_coupon", "Next: %s");

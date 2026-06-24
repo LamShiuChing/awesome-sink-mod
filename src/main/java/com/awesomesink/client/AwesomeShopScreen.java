@@ -3,6 +3,7 @@ package com.awesomesink.client;
 import java.util.List;
 
 import com.awesomesink.data.ShopCatalog;
+import com.awesomesink.item.CouponItem;
 import com.awesomesink.menu.AwesomeShopMenu;
 import com.awesomesink.network.BuyShopItemPayload;
 import com.awesomesink.registry.ModItems;
@@ -56,7 +57,7 @@ public class AwesomeShopScreen extends MachineScreen<AwesomeShopMenu> {
         int x0 = leftPos + 7;
         int y0 = topPos + 16;
         graphics.fill(x0, y0, x0 + COLS * CELL + 2, y0 + rows * CELL + 12, 0xF01A1A1A);
-        graphics.drawString(font, Component.translatable("screen.awesomesink.balance", couponBalance()),
+        graphics.drawString(font, Component.translatable("screen.awesomesink.balance", CouponItem.format(couponBalance())),
                 x0 + 3, y0 + 2, 0xFFE9C46A, false);
 
         for (int i = 0; i < entries.size(); i++) {
@@ -122,8 +123,8 @@ public class AwesomeShopScreen extends MachineScreen<AwesomeShopMenu> {
         return -1;
     }
 
-    private int couponBalance() {
+    private long couponBalance() {
         return minecraft.player.getInventory().items.stream()
-                .filter(s -> s.is(ModItems.COUPON.get())).mapToInt(ItemStack::getCount).sum();
+                .filter(s -> s.is(ModItems.COUPON.get())).mapToLong(CouponItem::amount).sum();
     }
 }

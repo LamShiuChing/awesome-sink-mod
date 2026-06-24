@@ -2,6 +2,7 @@ package com.awesomesink.block.entity;
 
 import com.awesomesink.data.AwesomePointsData;
 import com.awesomesink.data.SinkValuation;
+import com.awesomesink.item.CouponItem;
 import com.awesomesink.menu.AwesomeSinkMenu;
 import com.awesomesink.registry.ModItems;
 import net.minecraft.core.BlockPos;
@@ -105,22 +106,22 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
         return (long) value * amount;
     }
 
+    private static final int MAX_PRINT_PER_TICK = 4096;
+
     private void printCoupons(AwesomePointsData points) {
         ItemStack output = inventory.getStackInSlot(SLOT_OUTPUT);
         if (!output.isEmpty() && !output.is(ModItems.COUPON.get())) {
             return;
         }
-        int space = (output.isEmpty() ? new ItemStack(ModItems.COUPON.get()).getMaxStackSize() : output.getMaxStackSize())
-                - output.getCount();
         int printed = 0;
-        while (printed < space && points.tryPrintCoupon()) {
+        while (printed < MAX_PRINT_PER_TICK && points.tryPrintCoupon()) {
             printed++;
         }
         if (printed > 0) {
             if (output.isEmpty()) {
-                inventory.setStackInSlot(SLOT_OUTPUT, new ItemStack(ModItems.COUPON.get(), printed));
+                inventory.setStackInSlot(SLOT_OUTPUT, CouponItem.of(printed));
             } else {
-                output.grow(printed);
+                CouponItem.add(output, printed);
                 inventory.setStackInSlot(SLOT_OUTPUT, output);
             }
             level.playSound(null, worldPosition, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.6F, 1.4F);

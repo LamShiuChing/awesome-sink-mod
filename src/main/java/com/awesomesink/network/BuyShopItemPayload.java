@@ -3,6 +3,7 @@ package com.awesomesink.network;
 import com.awesomesink.AwesomeSink;
 import com.awesomesink.block.entity.AwesomeShopBlockEntity;
 import com.awesomesink.data.ShopCatalog;
+import com.awesomesink.item.CouponItem;
 import com.awesomesink.registry.ModItems;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
@@ -53,17 +54,24 @@ public record BuyShopItemPayload(BlockPos pos, int index) implements CustomPacke
                 SoundSource.PLAYERS, 0.6F, 1.2F);
     }
 
-    private static int countCoupons(ServerPlayer player) {
+    private static long countCoupons(ServerPlayer player) {
         return player.getInventory().items.stream()
-                .filter(s -> s.is(ModItems.COUPON.get())).mapToInt(ItemStack::getCount).sum();
+                .filter(s -> s.is(ModItems.COUPON.get())).mapToLong(CouponItem::amount).sum();
     }
 
-    private static void removeCoupons(ServerPlayer player, int amount) {
+    private static void removeCoupons(ServerPlayer player, long amount) {
         Inventory inv = player.getInventory();
         for (int slot = 0; slot < inv.items.size() && amount > 0; slot++) {
             ItemStack stack = inv.items.get(slot);
             if (stack.is(ModItems.COUPON.get())) {
-                amount -= stack.split(amount).getCount();
+                long held = CouponItem.amount(stack);
+                if (held <= amount) {
+                    amount -= held;
+                    inv.items.set(slot, ItemStack.EMPTY);
+                } else {
+                    CouponItem.add(stack, -amount);
+                    amount = 0;
+                }
             }
         }
         inv.setChanged();
