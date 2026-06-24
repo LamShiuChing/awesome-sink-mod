@@ -15,5 +15,6 @@
   "screen.awesomesink.points": "Points: %s",
   "screen.awesomesink.price": "Price: %s",
   "screen.awesomesink.rate": "Rate: %s/t",
-  "screen.awesomesink.shop_hint": "Shift-RClick: cycle item"
+  "screen.awesomesink.shop_hint": "Shift-RClick: cycle item",
+  "tooltip.awesomesink.sink_value": "Sink value: %s"
 }

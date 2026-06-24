@@ -2,7 +2,7 @@ package com.awesomesink.block.entity;
 
 import com.awesomesink.Config;
 import com.awesomesink.data.AwesomePointsData;
-import com.awesomesink.data.SinkValues;
+import com.awesomesink.data.SinkValuation;
 import com.awesomesink.menu.AwesomeSinkMenu;
 import com.awesomesink.registry.ModItems;
 import net.minecraft.core.BlockPos;
@@ -57,7 +57,10 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
 
     public AwesomeSinkBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.AWESOME_SINK.get(), pos, state, 1, 1,
-                (slot, stack) -> SinkValues.INSTANCE.get(stack.getItem()) > 0);
+                (slot, stack) -> {
+                    Integer override = SinkValuation.overrideOf(stack.getItem());
+                    return override == null || override > 0;
+                });
     }
 
     public ContainerData data() {
@@ -76,8 +79,11 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
 
     private int sinkInput(ServerLevel level, AwesomePointsData points) {
         ItemStack input = inventory.getStackInSlot(SLOT_INPUT);
-        int value = SinkValues.INSTANCE.get(input.getItem());
-        if (input.isEmpty() || value <= 0) {
+        if (input.isEmpty()) {
+            return 0;
+        }
+        int value = SinkValuation.value(input, level.getRecipeManager(), level.registryAccess());
+        if (value <= 0) {
             return 0;
         }
         int taken = Math.min(input.getCount(), Config.SINK_CONSUME_PER_TICK.get());

@@ -11,5 +11,6 @@ public final class ModNetwork {
         registrar.playToServer(SetSideModePayload.TYPE, SetSideModePayload.STREAM_CODEC, SetSideModePayload::handle);
         registrar.playToServer(BuyShopItemPayload.TYPE, BuyShopItemPayload.STREAM_CODEC, BuyShopItemPayload::handle);
         registrar.playToClient(SyncShopCatalogPayload.TYPE, SyncShopCatalogPayload.STREAM_CODEC, SyncShopCatalogPayload::handle);
+        registrar.playToClient(SyncSinkOverridesPayload.TYPE, SyncSinkOverridesPayload.STREAM_CODEC, SyncSinkOverridesPayload::handle);
     }
 }

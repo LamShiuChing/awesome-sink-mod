@@ -13,6 +13,30 @@
   "minecraft:lapis_lazuli": 18,
   "minecraft:emerald": 160,
   "minecraft:diamond": 200,
-  "minecraft:netherite_scrap": 600,
-  "minecraft:netherite_ingot": 2560
+
+  "minecraft:ancient_debris": 14000,
+  "minecraft:netherite_scrap": 15000,
+  "minecraft:netherite_ingot": 65000,
+  "minecraft:netherite_block": 600000,
+
+  "minecraft:wither_skeleton_skull": 25000,
+  "minecraft:nether_star": 120000,
+  "minecraft:beacon": 180000,
+
+  "minecraft:dragon_egg": 1000000,
+  "minecraft:dragon_head": 90000,
+  "minecraft:elytra": 300000,
+  "minecraft:end_crystal": 25000,
+
+  "minecraft:totem_of_undying": 60000,
+  "minecraft:enchanted_golden_apple": 80000,
+
+  "minecraft:heart_of_the_sea": 40000,
+  "minecraft:nautilus_shell": 6000,
+  "minecraft:conduit": 120000,
+  "minecraft:trident": 50000,
+
+  "minecraft:shulker_shell": 12000,
+  "minecraft:echo_shard": 12000,
+  "minecraft:recovery_compass": 90000
 }

@@ -27,8 +27,8 @@ public class SinkValues extends SimpleJsonResourceReloadListener {
         super(GSON, "sink_values");
     }
 
-    public int get(Item item) {
-        return values.getOrDefault(item, 0);
+    public Map<Item, Integer> all() {
+        return values;
     }
 
     @Override
@@ -42,5 +42,6 @@ public class SinkValues extends SimpleJsonResourceReloadListener {
             }
         }
         values = Map.copyOf(parsed);
+        SinkValuation.setOverrides(values);
     }
 }

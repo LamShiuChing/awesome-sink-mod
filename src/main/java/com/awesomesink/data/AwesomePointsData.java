@@ -31,13 +31,9 @@ public class AwesomePointsData extends SavedData {
     }
 
     public long nextCouponCost() {
-        long base = Config.COUPON_BASE_COST.get();
-        int n = couponsPrinted + 1;
-        if (n <= 3) {
-            return base;
-        }
-        long k = (long) Math.ceil(n / 3.0) - 1;
-        return (long) Config.COUPON_COST_FACTOR.get() * k * k + base;
+        long cost = Config.COUPON_BASE_COST.get() + (long) Config.COUPON_COST_STEP.get() * couponsPrinted;
+        long max = Config.COUPON_MAX_COST.get();
+        return max > 0 ? Math.min(cost, max) : cost;
     }
 
     public void addPoints(long amount) {
