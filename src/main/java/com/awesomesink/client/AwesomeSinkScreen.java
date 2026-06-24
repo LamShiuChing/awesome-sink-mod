@@ -17,5 +17,15 @@ public class AwesomeSinkScreen extends MachineScreen<AwesomeSinkMenu> {
                 8, 18, 0x404040, false);
         graphics.drawString(font, Component.translatable("screen.awesomesink.next_coupon", menu.nextCost()),
                 8, 28, 0x404040, false);
+        couponProgressBar(graphics);
+    }
+
+    /** Bar showing the unspent points pool filling toward the next coupon. */
+    private void couponProgressBar(GuiGraphics graphics) {
+        int x = 8, y = 52, w = 160, h = 6;
+        int cost = menu.nextCost();
+        int filled = cost > 0 ? Math.min(w, (int) ((long) w * menu.points() / cost)) : 0;
+        graphics.fill(x, y, x + w, y + h, 0xFF373737);
+        graphics.fill(x, y, x + filled, y + h, 0xFFE9C46A);
     }
 }
