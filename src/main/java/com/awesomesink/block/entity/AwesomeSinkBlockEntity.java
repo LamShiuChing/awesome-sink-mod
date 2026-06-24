@@ -6,6 +6,7 @@ import com.awesomesink.data.SinkValues;
 import com.awesomesink.menu.AwesomeSinkMenu;
 import com.awesomesink.registry.ModItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -77,6 +78,9 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
         points.addPoints((long) value * taken);
         input.shrink(taken);
         inventory.setStackInSlot(SLOT_INPUT, input);
+        ((ServerLevel) level).sendParticles(ParticleTypes.PORTAL,
+                worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5,
+                4, 0.25, 0.1, 0.25, 0.02);
     }
 
     private void printCoupons(AwesomePointsData points) {

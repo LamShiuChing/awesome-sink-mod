@@ -6,8 +6,10 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid = AwesomeSink.MODID, bus = EventBusSubscriber.Bus.MOD)
@@ -26,5 +28,7 @@ public final class DataGenerators {
         generator.addProvider(event.includeClient(), new ModLanguageProvider(output));
         generator.addProvider(event.includeServer(), new ModBlockLootProvider(output, lookup));
         generator.addProvider(event.includeServer(), new ModRecipeProvider(output, lookup));
+        generator.addProvider(event.includeServer(),
+                new AdvancementProvider(output, lookup, efh, List.of(new ModAdvancements())));
     }
 }

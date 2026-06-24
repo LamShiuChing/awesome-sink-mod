@@ -1,0 +1,33 @@
+{
+  "parent": "awesomesink:root",
+  "criteria": {
+    "has_coupon": {
+      "conditions": {
+        "items": [
+          {
+            "items": "awesomesink:coupon"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.awesomesink.coupon.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "awesomesink:coupon"
+    },
+    "title": {
+      "translate": "advancement.awesomesink.coupon.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_coupon"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

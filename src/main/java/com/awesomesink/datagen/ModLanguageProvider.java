@@ -27,5 +27,10 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add("message.awesomesink.shop_empty", "Shop catalog is empty");
         add("message.awesomesink.shop_selected", "Selling %sx %s for %s coupons");
+
+        add("advancement.awesomesink.root.title", "AWESOME");
+        add("advancement.awesomesink.root.desc", "Craft an AWESOME Sink");
+        add("advancement.awesomesink.coupon.title", "FICSIT Coupon");
+        add("advancement.awesomesink.coupon.desc", "Print your first coupon");
     }
 }

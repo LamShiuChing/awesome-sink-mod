@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "has_sink": {
+      "conditions": {
+        "items": [
+          {
+            "items": "awesomesink:awesome_sink"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancement.awesomesink.root.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "awesomesink:awesome_sink"
+    },
+    "title": {
+      "translate": "advancement.awesomesink.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_sink"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

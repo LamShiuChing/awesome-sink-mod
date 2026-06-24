@@ -1,4 +1,8 @@
 {
+  "advancement.awesomesink.coupon.desc": "Print your first coupon",
+  "advancement.awesomesink.coupon.title": "FICSIT Coupon",
+  "advancement.awesomesink.root.desc": "Craft an AWESOME Sink",
+  "advancement.awesomesink.root.title": "AWESOME",
   "block.awesomesink.awesome_shop": "AWESOME Shop",
   "block.awesomesink.awesome_sink": "AWESOME Sink",
   "item.awesomesink.coupon": "FICSIT Coupon",
