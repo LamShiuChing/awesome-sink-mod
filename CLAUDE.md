@@ -35,7 +35,7 @@ Minecraft mod recreating Satisfactory's AWESOME Sink + Shop: dump items into the
 - Points displayed in GUI are clamped to `int`.
 
 ## Recent Changes
-- 2026-06-24 — Fixed: couldn't take items out of input slots via GUI. MachineInventory.extractItem blocked all input extraction (meant for automation), but that also blocked the player. Removed it — per-face automation rules already live in DirectionalItemHandler.
+- 2026-06-24 — Fixed: couldn't take items out of input slots via GUI. MachineInventory.extractItem blocked all input extraction (meant for automation), but that also blocked the player. Removed it — per-face automation rules already live in DirectionalItemHandler. Pushed e9a6250; session end.
 - 2026-06-24 — Coupon is now a value token: DataComponentType<Long> coupon_amount; sink prints into one accumulating token (no 99 cap), CouponDecorator (RegisterItemDecorationsEvent) renders amount as K/M/B; shop/buy sum & spend amounts across tokens. Tokens don't vanilla-stack (each is a wallet); shop totals them. Pushed 40a533b.
 - 2026-06-24 — Fixed items/tick rate readout: was reset in tick() then re-accumulated, but consume-on-insert could add before the BE tick → wiped to 0. Now snapshots prev-tick accumulator (rate=consumed; consumed=0). Confirmed K/M/B display needs a stored amount + IItemDecorator (AE2/SophBackpacks pattern), not >99 stacks.
 - 2026-06-24 — Unbounded sink intake via consume-on-insert: MachineInventory.InputConsumer awards points the instant items are inserted (stores nothing) → no throughput cap. Reverted oversized input buffer that crashed (MC hard-caps item stacks at [1;99]; >99 fails to save). GUI-placed items still drained per tick. Removed sinkConsumePerTick config.

@@ -3,8 +3,12 @@ package com.awesomesink.block.entity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 
-/** Exposes a delegate handler to one face, allowing only insertion or only extraction. */
-public record DirectionalItemHandler(IItemHandler delegate, boolean allowInsert, boolean allowExtract)
+/**
+ * Exposes a machine inventory to one face for automation: an INPUT face may only insert into input
+ * slots, an OUTPUT face may only extract from output slots. The GUI uses the raw inventory directly,
+ * so the player is unaffected by these restrictions.
+ */
+public record DirectionalItemHandler(MachineInventory delegate, boolean allowInsert, boolean allowExtract)
         implements IItemHandler {
 
     @Override
@@ -19,12 +23,12 @@ public record DirectionalItemHandler(IItemHandler delegate, boolean allowInsert,
 
     @Override
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-        return allowInsert ? delegate.insertItem(slot, stack, simulate) : stack;
+        return allowInsert && delegate.isInput(slot) ? delegate.insertItem(slot, stack, simulate) : stack;
     }
 
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
-        return allowExtract ? delegate.extractItem(slot, amount, simulate) : ItemStack.EMPTY;
+        return allowExtract && !delegate.isInput(slot) ? delegate.extractItem(slot, amount, simulate) : ItemStack.EMPTY;
     }
 
     @Override
@@ -34,6 +38,6 @@ public record DirectionalItemHandler(IItemHandler delegate, boolean allowInsert,
 
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
-        return allowInsert && delegate.isItemValid(slot, stack);
+        return allowInsert && delegate.isInput(slot) && delegate.isItemValid(slot, stack);
     }
 }
