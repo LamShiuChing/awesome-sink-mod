@@ -11,6 +11,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
@@ -47,6 +49,8 @@ public record BuyShopItemPayload(BlockPos pos, int index) implements CustomPacke
         }
         removeCoupons(player, entry.price());
         ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(entry.item(), entry.count()));
+        player.level().playSound(null, player.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP,
+                SoundSource.PLAYERS, 0.6F, 1.2F);
     }
 
     private static int countCoupons(ServerPlayer player) {

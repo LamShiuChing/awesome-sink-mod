@@ -8,6 +8,8 @@ import com.awesomesink.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -95,6 +97,7 @@ public class AwesomeSinkBlockEntity extends AbstractMachineBlockEntity {
                 output.grow(printed);
                 inventory.setStackInSlot(SLOT_OUTPUT, output);
             }
+            level.playSound(null, worldPosition, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.6F, 1.4F);
         }
     }
 

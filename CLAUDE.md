@@ -35,6 +35,7 @@ Minecraft mod recreating Satisfactory's AWESOME Sink + Shop: dump items into the
 - Points displayed in GUI are clamped to `int`.
 
 ## Recent Changes
+- 2026-06-23 — Added common config (ModConfigSpec: coupon base/factor, sink rate) + shop catalog scrolling; pushed b2f8dc9. Coupon cost + sink rate now tunable.
 - 2026-06-23 — Added coupon progress bar to sink GUI (unspent points → next coupon cost); pushed db9f50c.
 - 2026-06-23 — Added crafting recipes via datagen RecipeProvider (sink=iron+redstone block, shop=gold+emerald); pushed 6f90182. Machines now survival-obtainable.
 - 2026-06-23 — Committed + pushed textures/datagen/shop-browser (5cffa90). Generated resources tracked; datagen .cache gitignored.
